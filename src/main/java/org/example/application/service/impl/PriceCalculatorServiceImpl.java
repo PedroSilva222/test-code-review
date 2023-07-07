@@ -37,6 +37,10 @@ public class PriceCalculatorServiceImpl implements PriceCalculatorService {
             return paymentOptions;
         }
 
+        if (command.getPersonType().compareTo(PersonType.BRAZILIAN) == 0 ) {
+            paymentOptions.put("INCASHDISCOUNT", command.getAmount().getValue());
+        }
+
         BigDecimal inCashDiscount = money.calculateDiscount(command.getAmount().getValue(), DISCOUNTNONBRAZILIAN);
 
         paymentOptions.put("INCASHDISCOUNT", new Money(inCashDiscount).getValue());
